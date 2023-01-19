@@ -14,6 +14,7 @@
 #include "packets-structures/participants.h"
 #include "packets-structures/session.h"
 #include <stddef.h>
+#include <string.h>
 
 class GlobalPacketF120 {
 private:
@@ -34,7 +35,7 @@ private:
   //Liste de la taille des différents paquets
   size_t packetsSizes[F120_TOTAL_PACKET_TYPE];
   //Permet de vérifier la conformité du paquet
-  bool isPacketOk(char *rawPacket, int *rawPacketSize);
+  bool isPacketOk(char *rawPacket, ssize_t *rawPacketSize);
   //Fonction de debug
   void debug();
 
@@ -42,7 +43,7 @@ public:
   //Constructeur
   GlobalPacketF120();
   //Mise à jour du paquet global, retourne l'adresse du paquet
-  void *update(char *rawPacket, int *rawPacketSize);
+  void *update(char *rawPacket, ssize_t *rawPacketSize);
 };
 
 #endif

@@ -2,11 +2,13 @@
 #include "../games/games.h"
 #include "../games/packet-manager.h"
 #include <string.h>
+#include <stdio.h>
 
 DataListener::DataListener(char *port, Games *currentGame) { //Constructeur
   //Ajout du jeu en cours
   this->currentGame = currentGame;
   //Paramétrage de la socket
+  this->gameAddressSize = sizeof(this->gameAddress);
   this->port = port; //n° de port
   memset(&hints, 0, sizeof hints); //Remise à zéro de hints
   this->hints.ai_family = AF_INET; //IPv4
@@ -26,7 +28,7 @@ int DataListener::initSocket() {
   }
   //Création de la socket
   this->appSocket = socket(this->res->ai_family, this->res->ai_socktype, this->res->ai_protocol);
-  if (appSocket == -1) {
+  if (appSocket == INVALID_SOCKET) {
     return -1;
   }
   //Ici, l'on va ignorer l'erreur "address already in use"
@@ -46,7 +48,7 @@ int DataListener::startListener() {
   }
 
   //Activation du mode "Écoute"
-  if ((bind(this->appSocket, this->res->ai_addr, this->res->ai_addrlen)) == -1) {
+  if ((bind(this->appSocket, this->res->ai_addr, this->res->ai_addrlen)) == INVALID_SOCKET) {
     return -1;
   }
   //Création des différents threads annexes
@@ -56,8 +58,8 @@ int DataListener::startListener() {
   PacketManager packetManager(this->currentGame);
 
   //Récupération en boucle de tous les paquets
-  while (stop == false) {
-    this->rawPacketSize = recvfrom(this->appSocket, this->rawPacket, sizeof this->rawPacket, 0, NULL, &this->gameAddressSize);
+  while (this->stop == false) {
+    this->rawPacketSize = recvfrom(this->appSocket, this->rawPacket, this->currentGame->getMaxPacketSize(), 0, NULL, &this->gameAddressSize);
     packetManager.handlePacket(this->rawPacket, &this->rawPacketSize);
   }
   return 0;
@@ -66,6 +68,7 @@ int DataListener::startListener() {
 //Permet d'écouter les signaux UNIX
 void DataListener::sigintHandler(int sig) {
   this->stop = true;
+  printf("Message reçu, je ferme!\n");
 }
 
 //Destructeur

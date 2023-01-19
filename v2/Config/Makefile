@@ -1,17 +1,17 @@
-Executable/F1GamesTelemetry : Objects/main.o Objects/games.o Objects/packet-manager.o Objects/global-packet-F12020.o Objects/data-listener.o
-	clang -o Executable/F1GamesTelemetry Objects/main.o Objects/games.o Objects/packet-manager.o Objects/global-packet-F12020.o Objects/data-listener.o -Wall
+executable/F1GamesTelemetry : objects/main.o objects/games.o objects/packet-manager.o objects/global-packet-F12020.o objects/data-listener.o
+	clang++ -o executable/F1GamesTelemetry objects/main.o objects/games.o objects/packet-manager.o objects/global-packet-F12020.o objects/data-listener.o -Wall -std=c++11
 
-Objects/main.o : ../main.cpp
-	clang -o Objects/main.o -c ../main.cpp -Wall
+objects/main.o : ../main.cpp
+	clang++ -o objects/main.o -c ../main.cpp -Wall -std=c++11
 
-Objects/games.o : ../games/games.cpp
-	clang -o Objects/games.o -c ../games/games.cpp -Wall
+objects/games.o : ../games/games.cpp
+	clang++ -o objects/games.o -c ../games/games.cpp -Wall -std=c++11
 
-Objects/packet-manager.o : ../games/packet-manager.cpp
-	clang -o Objects/packet-manager.o -c ../games/packet-manager.cpp -Wall
+objects/packet-manager.o : ../games/packet-manager.cpp
+	clang++ -o objects/packet-manager.o -c ../games/packet-manager.cpp -Wall -std=c++11
 
-Objects/global-packet-F12020.o : ../games/F1-2020/global-packet-F12020.cpp
-	clang -o Objects/global-packet-F12020.o -c ../games/F1-2020/global-packet-F12020.cpp -Wall
+objects/global-packet-F12020.o : ../games/F1-2020/global-packet-F12020.cpp
+	clang++ -o objects/global-packet-F12020.o -c ../games/F1-2020/global-packet-F12020.cpp -Wall -std=c++11
 
-Objects/data-listener.o : ../data-listener/data-listener.cpp
-	clang -o Objects/data-listener.o -c ../data-listener/data-listener.cpp -Wall
+objects/data-listener.o : ../data-listener/data-listener.cpp
+	clang++ -o objects/data-listener.o -c ../data-listener/data-listener.cpp -Wall -std=c++11

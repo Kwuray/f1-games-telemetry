@@ -38,12 +38,14 @@ GlobalPacketF120::GlobalPacketF120() {
 }
 
 //Permet de vérifier la conformité d'un paquet
-bool GlobalPacketF120::isPacketOk(char *rawPacket, int *rawPacketSize) {
+bool GlobalPacketF120::isPacketOk(char *rawPacket, ssize_t *rawPacketSize) {
   packetHeaderF120 tmpHeader;
   //On vérifie tout d'abord qu'il y ait au moins un header dans le paquet
   if (*rawPacketSize < sizeof(tmpHeader)) {
     return false;
   }
+  //Enregistrement du header temporaire
+  memcpy(&tmpHeader, rawPacket, sizeof(tmpHeader));
   //On vérifie ensuite que la taille totale est cohérente
   if (*rawPacketSize != this->packetsSizes[tmpHeader.m_packetId]) {
     return false;
@@ -52,7 +54,7 @@ bool GlobalPacketF120::isPacketOk(char *rawPacket, int *rawPacketSize) {
 }
 
 //Mis à jour du paquet global
-void* GlobalPacketF120::update(char *rawPacket, int *rawPacketSize) {
+void* GlobalPacketF120::update(char *rawPacket, ssize_t *rawPacketSize) {
   //On ne continu que si le paquet est conforme
   if (!this->isPacketOk(rawPacket, rawPacketSize)) {
     return NULL;

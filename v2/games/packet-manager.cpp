@@ -1,5 +1,6 @@
 #include "packet-manager.h"
 #include "F1-2020/global-packet-F12020.h"
+#include <string.h>
 
 //Constructeur
 PacketManager::PacketManager(Games *currentGame) {
@@ -16,11 +17,10 @@ PacketManager::PacketManager(Games *currentGame) {
 }
 
 //Permet de gérer un paquet reçu, vérifier sa conformité, l'enregistrer et l'envoyer vers les queues
-void PacketManager::handlePacket(char* rawPacket, int *rawPacketSize) {
+void PacketManager::handlePacket(char* rawPacket, ssize_t *rawPacketSize) {
   //On enregistre le paquet reçu
   void *savedPacket;
   //On cast le pointeur différemment selon le jeu
-
   switch (this->currentGame->getCurrentGame()) {
     case F1_2020:
       savedPacket = static_cast<GlobalPacketF120*>(this->globalPacket)->update(rawPacket, rawPacketSize);
