@@ -2,7 +2,7 @@
 #define PACKET_MANAGER_H
 #include "games.h"
 #include "global-packet.h"
-#include "queues/packet-queue.h"
+#include "packet-type.h"
 #include <string.h>
 #include <queue>
 
@@ -15,7 +15,7 @@ public:
   //Constructeur
   PacketManager(Games *currentGame);
   //Permet de gérer un paquet reçu, vérifier sa conformité, l'enregistrer et l'envoyer vers les queues
-  void handlePacket(char* rawPacket, ssize_t *rawPacketSize, queue<PacketQueue> *q);
+  void handlePacket(char* rawPacket, ssize_t *rawPacketSize, queue<PacketType> *q);
   //Destructeur
   ~PacketManager();
 };

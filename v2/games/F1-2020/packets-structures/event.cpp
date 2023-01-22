@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 //Permet de charger les données
-bool PacketEventDataObj::loadData(char *data[], ssize_t dataSize) {
+bool PacketEventDataObj::loadData(char *data, ssize_t dataSize) {
   //On vérifie tout d'abord que la taille est cohérente
   if (dataSize != sizeof(this->event)) {
     return false;

@@ -7,7 +7,7 @@ public:
   //Constructeur
   GlobalPacket();
   //Mise à jour du paquet global, retourne l'adresse du paquet
-  virtual void *update(char *rawPacket, ssize_t *rawPacketSize) = 0;
+  virtual GlobalPacket *update(char *rawPacket, ssize_t *rawPacketSize) = 0;
 };
 
 #endif

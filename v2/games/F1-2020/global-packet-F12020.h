@@ -2,7 +2,7 @@
 #define GLOBAL_PACKET_F120_H
 #define F120_TOTAL_PACKET_TYPE 10
 #include "../global-packet.h"
-
+#include "../packet-type.h"
 #include "packets-structures/car-setup.h"
 #include "packets-structures/car-status.h"
 #include "packets-structures/car-telemetry.h"
@@ -21,26 +21,20 @@ class GlobalPacketF120 : public GlobalPacket {
 private:
   //Tous les différents paquets
   packetHeaderF120 header;
-  packetMotionData motion;
-  packetSessionData session;
-  packetLapData lap;
-  packetEventData event;
-  packetParticipantsData participants;
-  packetCarSetupData setup;
-  packetCarTelemetryData telemetry;
-  packetCarStatusData carStatus;
-  packetFinalClassificationData finalClassification;
-  packetLobbyInfoData lobbyInfo;
+  PacketMotionDataObj motion();
+  PacketSessionDataObj session();
+  PacketLapDataObj lap();
+  PacketEventDataObj event();
+  PacketParticipantsDataObj participants();
+  PacketCarSetupDataObj setup();
+  PacketCarTelemetryDataObj telemetry();
+  PacketCarStatusDataObj carStatus();
+  PacketFinalClassificationDataObj finalClassification();
+  PacketLobbyInfoDataObj lobbyInfo();
   //Liste des adresses des paquets
-  void *packetsAdresses[F120_TOTAL_PACKET_TYPE];
-  //Liste de la taille des différents paquets
-  size_t packetsSizes[F120_TOTAL_PACKET_TYPE];
+  PacketType *packetsAdresses[F120_TOTAL_PACKET_TYPE];
   //Mise à jour du paquet global, retourne l'adresse du paquet
-  void *update(char *rawPacket, ssize_t *rawPacketSize);
-  //Permet de vérifier la conformité du paquet
-  bool isPacketOk(char *rawPacket, ssize_t *rawPacketSize);
-  //Fonction de debug
-  void debug();
+  GlobalPacket *update(char *rawPacket, ssize_t *rawPacketSize);
 
 public:
   //Constructeur

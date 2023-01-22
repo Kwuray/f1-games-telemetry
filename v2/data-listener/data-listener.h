@@ -3,7 +3,7 @@
 #define INVALID_SOCKET -1
 
 #include "../games/games.h"
-#include "../queues/packet-queue.h"
+#include "../games/packet-type.h"
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
@@ -30,7 +30,7 @@ public:
   //Initialisation de la socket (renvoi -1 si erreur)
   int initSocket();
   //Démarrage de l'écoute
-  void listen(queue<PacketQueue> *q);
+  void listen(queue<PacketType> *q);
   //Destructeur
   ~DataListener();
 };

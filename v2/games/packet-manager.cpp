@@ -1,6 +1,7 @@
 #include "F1-2020/global-packet-F12020.h"
 #include "packet-manager.h"
-#include "queues/packet-queue.h"
+#include "packet-type.h"
+#include "packet-type.h"
 #include <string.h>
 #include <queue>
 
@@ -19,15 +20,19 @@ PacketManager::PacketManager(Games *currentGame) {
 }
 
 //Permet de gérer un paquet reçu, vérifier sa conformité, l'enregistrer et l'envoyer vers les queues
-void PacketManager::handlePacket(char* rawPacket, ssize_t *rawPacketSize, queue<PacketQueue> *q) {
+void PacketManager::handlePacket(char* rawPacket, ssize_t *rawPacketSize, queue<PacketType> *q) {
+  //Si le paquet n'a pas bien été enregistré, on quitte la fonction
+  if (!this->globalPacket->update(rawPacket, rawPacketSize)) {
+    return
+  }
   //On enregistre le paquet reçu
-  void *savedPacket = this->globalPacket->update(rawPacket, rawPacketSize);
-  if (savedPacket == NULL) {
+  GlobalPacket *savedPacket = this->globalPacket->update(rawPacket, rawPacketSize);
+  if (savedPacket == nullptr) {
     //Le paquet ne semble pas être conforme
     return;
   }
   //Envoi vers les différentes queues
-  q->push(PacketQueue())
+  q->push(*savedPacket);
 }
 
 //Destructeur

@@ -1,6 +1,7 @@
 #include "data-listener.h"
 #include "../games/games.h"
 #include "../games/packet-manager.h"
+#include "../games/packet-type.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -46,7 +47,7 @@ int DataListener::initSocket() {
 }
 
 //Démarrage de l'écoute
-void DataListener::listen(queue<PacketQueue> *q) {
+void DataListener::listen(queue<PacketType> *q) {
   //Initialisation du packetManager
   PacketManager packetManager(this->currentGame);
   //Récupération en boucle de tous les paquets

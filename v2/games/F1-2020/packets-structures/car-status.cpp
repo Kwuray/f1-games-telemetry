@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 //Permet de charger les données
-bool PacketCarStatusDataObj::loadData(char *data[], ssize_t dataSize) {
+bool PacketCarStatusDataObj::loadData(char *data, ssize_t dataSize) {
   //On vérifie tout d'abord que la taille est cohérente
   if (dataSize != sizeof(this->carStatus)) {
     return false;
