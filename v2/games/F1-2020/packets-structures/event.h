@@ -13,7 +13,9 @@
 #define DEF_F120PACKEVENT
 
 #include "header.h"
+#include "../../packet-type.h"
 #include <stdint.h>
+#include <string.h>
 
 union eventDataDetails {
 
@@ -58,6 +60,18 @@ struct __attribute__((packed)) packetEventData {
   uint8_t           	      m_eventStringCode[4]; // Event string code, see below
   union eventDataDetails	  m_eventDetails;       // Event details - should be interpreted differently
                                               // for each type
+};
+
+class PacketEventDataObj : public PacketType {
+private:
+  packetEventData event;
+
+public:
+  //Permet de charger les données, renvoi si oui ou non cela a été fait
+  bool loadData(char *data[], ssize_t dataSize);
+  //Fonction de debug
+  void debug();
+
 };
 
 #endif

@@ -13,7 +13,9 @@
 #define DEF_F120PACKFINALCLASSIF
 
 #include "header.h"
+#include "../../packet-type.h"
 #include <stdint.h>
+#include <string.h>
 
 struct __attribute__((packed)) finalClassificationData {
 
@@ -40,6 +42,18 @@ struct __attribute__((packed)) packetFinalClassificationData {
   struct packetHeaderF120    	          m_header;           // Header
   uint8_t                           m_numCars;                 // Number of cars in the final classification
   struct finalClassificationData    m_classificationData[22];
+};
+
+class PacketFinalClassificationDataObj : public PacketType {
+private:
+  packetFinalClassificationData finalClassification;
+
+public:
+  //Permet de charger les données, renvoi si oui ou non cela a été fait
+  bool loadData(char *data[], ssize_t dataSize);
+  //Fonction de debug
+  void debug();
+
 };
 
 #endif

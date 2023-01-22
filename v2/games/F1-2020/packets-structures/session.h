@@ -10,7 +10,9 @@
 #define DEF_F120PACKSESSION
 
 #include "header.h"
+#include "../../packet-type.h"
 #include <stdint.h>
+#include <string.h>
 
 struct __attribute__((packed)) marshalZone {
 
@@ -61,6 +63,18 @@ struct __attribute__((packed)) packetSessionData {
   uint8_t               m_networkGame;               // 0 = offline, 1 = online
   uint8_t               m_numWeatherForecastSamples; // Number of weather samples to follow
   struct weatherForecastSample m_weatherForecastSamples[20];// Array of weather forecast samples
+};
+
+class PacketSessionDataObj : public PacketType {
+private:
+  packetSessionData session;
+
+public:
+  //Permet de charger les données, renvoi si oui ou non cela a été fait
+  bool loadData(char *data[], ssize_t dataSize);
+  //Fonction de debug
+  void debug();
+
 };
 
 #endif

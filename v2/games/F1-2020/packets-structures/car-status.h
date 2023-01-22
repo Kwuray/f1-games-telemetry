@@ -11,7 +11,9 @@
 #define DEF_F120PACKCARSTATUS
 
 #include "header.h"
+#include "../../packet-type.h"
 #include <stdint.h>
+#include <string.h>
 
 struct __attribute__((packed)) carStatusData {
 
@@ -68,6 +70,18 @@ struct __attribute__((packed)) packetCarStatusData {
 
   struct packetHeaderF120    	m_header;           // Header
   struct carStatusData	    m_carStatusData[22];
+};
+
+class PacketCarStatusDataObj : public PacketType {
+private:
+  packetCarStatusData carStatus;
+
+public:
+  //Permet de charger les données, renvoi si oui ou non cela a été fait
+  bool loadData(char *data[], ssize_t dataSize);
+  //Fonction de debug
+  void debug();
+
 };
 
 #endif

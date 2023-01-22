@@ -11,7 +11,9 @@
 #define DEF_F120PACKCARTELEMETRY
 
 #include "header.h"
+#include "../../packet-type.h"
 #include <stdint.h>
+#include <string.h>
 
 struct __attribute__((packed)) carTelemetryData {
 
@@ -48,6 +50,18 @@ struct __attribute__((packed)) packetCarTelemetryData {
   uint8_t m_mfdPanelIndexSecondaryPlayer;   // See above
   int8_t m_suggestedGear;                   // Suggested gear for the player (1-8)
                                             //# 0 if no gear suggested
+
+};
+
+class PacketCarTelemetryDataObj : public PacketType {
+private:
+  packetCarTelemetryData carTelemetry;
+
+public:
+  //Permet de charger les données, renvoi si oui ou non cela a été fait
+  bool loadData(char *data[], ssize_t dataSize);
+  //Fonction de debug
+  void debug();
 
 };
 

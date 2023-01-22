@@ -37,38 +37,23 @@ int DataListener::initSocket() {
   socketTimeout.tv_sec = 5;
   socketTimeout.tv_usec = 5000;
   setsockopt(appSocket, SOL_SOCKET, SO_RCVTIMEO, &socketTimeout, sizeof socketTimeout);
-  return 0;
-}
-
-//Démarrage du listener
-int DataListener::startListener() {
-  //Initialisation de la socket
-  if (this->initSocket() == -1) {
-    return -1;
-  }
 
   //Activation du mode "Écoute"
   if ((bind(this->appSocket, this->res->ai_addr, this->res->ai_addrlen)) == INVALID_SOCKET) {
     return -1;
   }
-  //Création des différents threads annexes
-  //...
-
-  //Initialisation du packetManager
-  PacketManager packetManager(this->currentGame);
-
-  //Récupération en boucle de tous les paquets
-  while (this->stop == false) {
-    this->rawPacketSize = recvfrom(this->appSocket, this->rawPacket, this->currentGame->getMaxPacketSize(), 0, NULL, &this->gameAddressSize);
-    packetManager.handlePacket(this->rawPacket, &this->rawPacketSize);
-  }
   return 0;
 }
 
-//Permet d'écouter les signaux UNIX
-void DataListener::sigintHandler(int sig) {
-  this->stop = true;
-  printf("Message reçu, je ferme!\n");
+//Démarrage de l'écoute
+void DataListener::listen(queue<PacketQueue> *q) {
+  //Initialisation du packetManager
+  PacketManager packetManager(this->currentGame);
+  //Récupération en boucle de tous les paquets
+  while (this->stop == false) {
+    this->rawPacketSize = recvfrom(this->appSocket, this->rawPacket, this->currentGame->getMaxPacketSize(), 0, NULL, &this->gameAddressSize);
+    packetManager.handlePacket(this->rawPacket, &this->rawPacketSize, q);
+  }
 }
 
 //Destructeur

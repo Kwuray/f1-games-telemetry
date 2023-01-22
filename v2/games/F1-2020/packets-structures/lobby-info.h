@@ -12,7 +12,9 @@
 #define DEF_F120PACKLOBBYINFO
 
 #include "header.h"
+#include "../../packet-type.h"
 #include <stdint.h>
+#include <string.h>
 
 struct __attribute__((packed)) lobbyInfoData {
 
@@ -31,6 +33,18 @@ struct __attribute__((packed)) packetLobbyInfoData {
   // Packet specific data
   uint8_t                      m_numPlayers;               // Number of players in the lobby data
   struct lobbyInfoData         m_lobbyPlayers[22];
+};
+
+class PacketLobbyInfoDataObj : public PacketType {
+private:
+  packetFinalClassificationData lobbyInfo;
+
+public:
+  //Permet de charger les données, renvoi si oui ou non cela a été fait
+  bool loadData(char *data[], ssize_t dataSize);
+  //Fonction de debug
+  void debug();
+
 };
 
 #endif

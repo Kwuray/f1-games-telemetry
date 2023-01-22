@@ -3,10 +3,12 @@
 #define INVALID_SOCKET -1
 
 #include "../games/games.h"
+#include "../queues/packet-queue.h"
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <sys/time.h>
+#include <queue>
 
 class DataListener {
 private:
@@ -22,18 +24,15 @@ private:
   Games *currentGame;
   bool stop;
 
-  //Initialisation de la socket (renvoi -1 si erreur)
-  int initSocket();
-  //Permet d'écouter les signaux UNIX
-  void sigintHandler(int sig);
-
 public:
   //Constructeur
   DataListener(char* port, Games *currentGame);
+  //Initialisation de la socket (renvoi -1 si erreur)
+  int initSocket();
+  //Démarrage de l'écoute
+  void listen(queue<PacketQueue> *q);
   //Destructeur
   ~DataListener();
-  //Démarrage du listener (renvoi -1 si erreur)
-  int startListener();
 };
 
 #endif

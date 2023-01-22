@@ -16,7 +16,9 @@
 #define DEF_F120PACKMOTION
 
 #include "header.h"
+#include "../../packet-type.h"
 #include <stdint.h>
+#include <string.h>
 
 struct __attribute__((packed)) carMotionData {
 
@@ -62,6 +64,18 @@ struct __attribute__((packed)) packetMotionData {
   float         m_angularAccelerationY;	      // Angular velocity y-component
   float         m_angularAccelerationZ;       // Angular velocity z-component
   float         m_frontWheelsAngle;           // Current front wheels angle in radians
+};
+
+class PacketMotionDataObj : public PacketType {
+private:
+  packetFinalClassificationData motion;
+
+public:
+  //Permet de charger les données, renvoi si oui ou non cela a été fait
+  bool loadData(char *data[], ssize_t dataSize);
+  //Fonction de debug
+  void debug();
+
 };
 
 #endif
