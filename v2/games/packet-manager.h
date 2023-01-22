@@ -1,12 +1,13 @@
 #ifndef PACKET_MANAGER_H
 #define PACKET_MANAGER_H
 #include "games.h"
+#include "global-packet.h"
 #include <string.h>
 
 class PacketManager {
 private:
   Games *currentGame;
-  void *globalPacket;
+  GlobalPacket *globalPacket;
 
 public:
   //Constructeur

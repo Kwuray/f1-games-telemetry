@@ -1,6 +1,7 @@
 #ifndef GLOBAL_PACKET_F120_H
 #define GLOBAL_PACKET_F120_H
 #define F120_TOTAL_PACKET_TYPE 10
+#include "../global-packet.h"
 
 #include "packets-structures/carSetup.h"
 #include "packets-structures/carStatus.h"
@@ -16,7 +17,7 @@
 #include <stddef.h>
 #include <string.h>
 
-class GlobalPacketF120 {
+class GlobalPacketF120 : public GlobalPacket {
 private:
   //Tous les différents paquets
   packetHeaderF120 header;
@@ -34,6 +35,8 @@ private:
   void *packetsAdresses[F120_TOTAL_PACKET_TYPE];
   //Liste de la taille des différents paquets
   size_t packetsSizes[F120_TOTAL_PACKET_TYPE];
+  //Mise à jour du paquet global, retourne l'adresse du paquet
+  void *update(char *rawPacket, ssize_t *rawPacketSize);
   //Permet de vérifier la conformité du paquet
   bool isPacketOk(char *rawPacket, ssize_t *rawPacketSize);
   //Fonction de debug
@@ -42,8 +45,6 @@ private:
 public:
   //Constructeur
   GlobalPacketF120();
-  //Mise à jour du paquet global, retourne l'adresse du paquet
-  void *update(char *rawPacket, ssize_t *rawPacketSize);
 };
 
 #endif
