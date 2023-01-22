@@ -18,3 +18,6 @@ objects/data-listener.o : ../data-listener/data-listener.cpp
 
 objects/global-packet.o : ../games/global-packet.cpp
 	clang++ -o objects/global-packet.o -c ../games/global-packet.cpp -Wall -std=c++11
+
+objects/f12020-packets.o : ../games/F1-2020/packets-structures/*.cpp
+	clang++ -o objects/f12020-packets.o ../games/F1-2020/packets-structures/*.cpp

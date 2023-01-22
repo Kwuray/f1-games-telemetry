@@ -13,17 +13,19 @@ int main(int argc, char *argv[]) {
   //Création de la queue de debug
   queue<PacketType> debugQueue;
   //On initialise le listener
-  DataListener listener("20777", &selectedGame, &debugQueue);
-  if (listener.initSocket() == -1) {
+  //DataListener listener("20777", &selectedGame, &debugQueue);
+  //if (listener.initSocket() == -1) {
     //ERROR
-    return -1;
-  }
+    //return -1;
+  //}
   //Création du thread de deug
   DebugThread debugObj();
-  thread debugT(&debugObj::start, &debugQueue)
+  thread debugT(debugObj.start, &debugQueue);
   //Réception des paquets
-  listener.listen();
-  printf("C'est la fin...\n");
+  //listener.listen();
+  printf("J'attends 6 secondes !");
+  this_thread::sleep_for(second{6})
   debugObj.stop();
   debugT.join();
+  printf("C'est la fin...\n");
 }
