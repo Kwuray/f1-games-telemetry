@@ -1,4 +1,4 @@
-CC = clang++
+CC = g++
 PARAMS = -std=c++11 -Wall
 ##################################################
 #Games global
@@ -85,8 +85,13 @@ objects/main.o : ../main.cpp
 .PHONY: test clear
 
 test :
-	echo $(SRC_FILES_F12020) | tr " " "\n"; echo "\n\n"
-	echo $(OBJ_FILES_F12020) | tr " " "\n"
+	$(CC) -o objects/tests/packet-type.o -c ../games/packet-type.cpp $(PARAMS)
+	$(CC) -o objects/tests/car-setup.o -c ../games/F1-2020/packets-structures/car-setup.cpp $(PARAMS)
+	$(CC) -o objects/tests/main.o -c ../main.cpp $(PARAMS)
+	$(CC) -o objects/tests/games.o -c ../games/games.cpp $(PARAMS)
+	$(CC) -o objects/tests/Test objects/tests/main.o objects/tests/games.o objects/tests/car-setup.o objects/tests/packet-type.o $(PARAMS)
+	./objects/tests/Test
+
 
 clear :
 	rm -f $(GAMES_OBJ_PATH)*.o

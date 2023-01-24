@@ -3,7 +3,7 @@
 #define INVALID_SOCKET -1
 
 #include "../games/games.h"
-#include "../games/packet-wrapper.h"
+#include "../games/packet-type.h"
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
