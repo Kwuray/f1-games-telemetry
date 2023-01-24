@@ -3,12 +3,13 @@
 #include <stdio.h>
 
 //Permet de charger les données
-bool PacketParticipantsDataObj::loadData(char *data, ssize_t dataSize) {
+bool PacketParticipantsDataObj::loadData(char *data, size_t *dataSize) {
   //On vérifie tout d'abord que la taille est cohérente
-  if (dataSize != sizeof(this->motion)) {
+  if (*dataSize != sizeof(this->participants)) {
     return false;
   }
-  memcpy(&this->motion, data, dataSize);
+  memcpy(&this->participants, data, *dataSize);
+  return true;
 }
 
 //Fonction de debug

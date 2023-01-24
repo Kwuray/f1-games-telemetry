@@ -63,11 +63,11 @@ struct __attribute__((packed)) packetLapData {
 
 class PacketLapDataObj : public PacketType {
 private:
-  packetFinalClassificationData lap;
+  packetLapData lap;
 
 public:
   //Permet de charger les données, renvoi si oui ou non cela a été fait
-  bool loadData(char *data, ssize_t dataSize);
+  bool loadData(char *data, size_t *dataSize);
   //Fonction de debug
   void debug();
 

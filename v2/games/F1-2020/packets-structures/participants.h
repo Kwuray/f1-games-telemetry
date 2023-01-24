@@ -45,11 +45,11 @@ struct __attribute__((packed)) packetParticipantsData {
 
 class PacketParticipantsDataObj : public PacketType {
 private:
-  packetFinalClassificationData participants;
+  packetParticipantsData participants;
 
 public:
   //Permet de charger les données, renvoi si oui ou non cela a été fait
-  bool loadData(char *data, ssize_t dataSize);
+  bool loadData(char *data, size_t *dataSize);
   //Fonction de debug
   void debug();
 

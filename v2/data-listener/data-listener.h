@@ -3,12 +3,13 @@
 #define INVALID_SOCKET -1
 
 #include "../games/games.h"
-#include "../games/packet-type.h"
+#include "../games/packet-wrapper.h"
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <sys/time.h>
 #include <queue>
+using namespace std;
 
 class DataListener {
 private:
@@ -30,7 +31,7 @@ public:
   //Initialisation de la socket (renvoi -1 si erreur)
   int initSocket();
   //Démarrage de l'écoute
-  void listen(queue<PacketType> *q);
+  void listen(queue<PacketWrapper> *q);
   //Destructeur
   ~DataListener();
 };

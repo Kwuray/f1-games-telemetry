@@ -1,9 +1,8 @@
 #include "packet-queue.h"
 
 //constructor
-PacketQueue::PacketQueue(char *rawPacket, int packetSize) {
-  this->rawPacket = new char[packetSize];
-  this->rawPacket = *rawPacket;
+PacketQueue::PacketQueue(char *rawPacket) {
+  this->rawPacket = rawPacket;
 }
 
 //destructor

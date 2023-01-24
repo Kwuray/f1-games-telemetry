@@ -3,12 +3,13 @@
 #include <stdio.h>
 
 //Permet de charger les données
-bool PacketLobbyInfoDataObj::loadData(char *data, ssize_t dataSize) {
+bool PacketLobbyInfoDataObj::loadData(char *data, size_t *dataSize) {
   //On vérifie tout d'abord que la taille est cohérente
-  if (dataSize != sizeof(this->lobbyInfo)) {
+  if (*dataSize != sizeof(this->lobbyInfo)) {
     return false;
   }
-  memcpy(&this->lobbyInfo, data, dataSize);
+  memcpy(&this->lobbyInfo, data, *dataSize);
+  return true;
 }
 
 //Fonction de debug

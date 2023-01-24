@@ -3,12 +3,13 @@
 #include <stdio.h>
 
 //Permet de charger les données
-bool PacketCarTelemetryDataObj::loadData(char *data, ssize_t dataSize) {
+bool PacketCarTelemetryDataObj::loadData(char *data, size_t *dataSize) {
   //On vérifie tout d'abord que la taille est cohérente
-  if (dataSize != sizeof(this->carTelemetry)) {
+  if (*dataSize != sizeof(this->carTelemetry)) {
     return false;
   }
-  memcpy(&this->carTelemetry, data, dataSize);
+  memcpy(&this->carTelemetry, data, *dataSize);
+  return true;
 }
 
 //Fonction de debug

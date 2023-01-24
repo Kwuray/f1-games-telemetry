@@ -2,3 +2,7 @@
 
 GlobalPacket::GlobalPacket(){
 }
+
+GlobalPacket::~GlobalPacket() {
+  
+}

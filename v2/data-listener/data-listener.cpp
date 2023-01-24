@@ -1,7 +1,11 @@
 #include "data-listener.h"
 #include "../games/games.h"
 #include "../games/packet-manager.h"
-#include "../games/packet-type.h"
+#include "../games/packet-wrapper.h"
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <sys/time.h>
 #include <string.h>
 #include <stdio.h>
 
@@ -40,20 +44,23 @@ int DataListener::initSocket() {
   setsockopt(appSocket, SOL_SOCKET, SO_RCVTIMEO, &socketTimeout, sizeof socketTimeout);
 
   //Activation du mode "Écoute"
-  if ((bind(this->appSocket, this->res->ai_addr, this->res->ai_addrlen)) == INVALID_SOCKET) {
+  if ((::bind(this->appSocket, this->res->ai_addr, this->res->ai_addrlen)) == INVALID_SOCKET) {
     return -1;
   }
   return 0;
 }
 
 //Démarrage de l'écoute
-void DataListener::listen(queue<PacketType> *q) {
+void DataListener::listen(queue<PacketWrapper> *q) {
   //Initialisation du packetManager
-  PacketManager packetManager(this->currentGame);
+  PacketManager packetManager{this->currentGame};
   //Récupération en boucle de tous les paquets
   while (this->stop == false) {
     this->rawPacketSize = recvfrom(this->appSocket, this->rawPacket, this->currentGame->getMaxPacketSize(), 0, NULL, &this->gameAddressSize);
-    packetManager.handlePacket(this->rawPacket, &this->rawPacketSize, q);
+    //Si l'on reçoit bien un paquet
+    if (this->rawPacketSize > 0) {
+      packetManager.handlePacket(this->rawPacket, static_cast<size_t>(this->rawPacketSize), q);
+    }
   }
 }
 

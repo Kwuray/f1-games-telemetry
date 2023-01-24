@@ -1,11 +1,18 @@
 #include "global-packet-F12020.h"
+#include "car-setup.h"
+#include "../../packet-type.h"
+#include "../../packet-wrapper.h"
 #include <string.h>
 #include <stdio.h>
+#include <queue>
+using namespace std;
 
 //Constructeur
 GlobalPacketF120::GlobalPacketF120() {
-  //Pour chaque paquet, on enregistre son adresse.
+  //On ajoute
+
   this->packetsAdresses[0] = &this->motion;
+
   this->packetsAdresses[1] = &this->session;
   this->packetsAdresses[2] = &this->lap;
   this->packetsAdresses[3] = &this->event;
@@ -18,10 +25,10 @@ GlobalPacketF120::GlobalPacketF120() {
 }
 
 //Mis à jour du paquet global
-GlobalPacket* GlobalPacketF120::update(char *rawPacket, ssize_t *rawPacketSize) {
+PacketType* GlobalPacketF120::update(char *rawPacket, size_t *rawPacketSize, queue<PacketWrapper> *q) {
   //On ne continu que si le paquet contient au moins un header
   if (*rawPacketSize < sizeof(this->header)) {
-    return false;
+    return nullptr;
   }
   //Enregistrement du header
   memcpy(&this->header, rawPacket, sizeof(this->header));
@@ -30,6 +37,6 @@ GlobalPacket* GlobalPacketF120::update(char *rawPacket, ssize_t *rawPacketSize) 
   if (!this->packetsAdresses[this->header.m_packetId]->loadData(rawPacket, rawPacketSize)) {
     return nullptr;
   }
-  //On peut retourner l'adresse du nouveau paquet
-  return this->packetsAdresses[this->header.m_packetId];
+  //On peut retourner l'adresse du paquet
+  return this->packetsAdresses[this->header.m_packetId]
 }

@@ -1,23 +1,95 @@
-executable/F1GamesTelemetry : objects/main.o objects/games.o objects/packet-manager.o objects/global-packet-F12020.o objects/data-listener.o objects/global-packet.o
-	clang++ -o executable/F1GamesTelemetry objects/*.o -Wall -std=c++11
+CC = clang++
+PARAMS = -std=c++11 -Wall
+##################################################
+#Games global
+GAMES_SRC_PATH = ../games/
+GAMES_OBJ_PATH = objects/games/
+SRC_FILES_GAMES = $(wildcard $(GAMES_SRC_PATH)*.cpp)
+HEADER_FILES_GAMES = $(wildcard $(GAMES_SRC_PATH)*.h)
+OBJ_FILES_GAMES = $(SRC_FILES_GAMES:$(GAMES_SRC_PATH)%.cpp=$(GAMES_OBJ_PATH)%.o)
+#recipes
+$(GAMES_OBJ_PATH)%.o : $(GAMES_SRC_PATH)%.cpp $(GAMES_SRC_PATH)%.h
+	$(CC) -o $@ -c $< $(PARAMS)
+#Games global
+##################################################
+
+
+##################################################
+#F12020 packets
+F12020_SRC_PATH = ../games/F1-2020/packets-structures/
+F12020_OBJ_PATH = objects/games/F1-2020/
+SRC_FILES_F12020 = $(wildcard $(F12020_SRC_PATH)*.cpp)
+HEADER_FILES_F12020 = $(wildcard $(F12020_SRC_PATH)*.h)
+OBJ_FILES_F12020 = $(SRC_FILES_F12020:$(F12020_SRC_PATH)%.cpp=$(F12020_OBJ_PATH)%.o)
+#recipes
+$(F12020_OBJ_PATH)%.o : $(F12020_SRC_PATH)%.cpp $(F12020_SRC_PATH)%.h
+	$(CC) -o $@ -c $< $(PARAMS)
+#F12020 packets
+##################################################
+
+
+##################################################
+#Queue
+QUEUE_SRC_PATH = ../queues/
+QUEUE_OBJ_PATH = objects/queues/
+SRC_FILES_QUEUE = $(wildcard $(QUEUE_SRC_PATH)*.cpp)
+HEADER_FILES_QUEUE = $(wildcard $(QUEUE_SRC_PATH)*.h)
+OBJ_FILES_QUEUE = $(SRC_FILES_QUEUE:$(QUEUE_SRC_PATH)%.cpp=$(QUEUE_OBJ_PATH)%.o)
+#recipes
+$(QUEUE_OBJ_PATH)%.o : $(QUEUE_SRC_PATH)%.cpp $(QUEUE_SRC_PATH)%.h
+	$(CC) -o $@ -c $< $(PARAMS)
+#Queue
+##################################################
+
+
+##################################################
+#Debug
+DEBUG_SRC_PATH = ../debug/
+DEBUG_OBJ_PATH = objects/debug/
+SRC_FILES_DEBUG = $(wildcard $(DEBUG_SRC_PATH)*.cpp)
+HEADER_FILES_DEBUG = $(wildcard $(DEBUG_SRC_PATH)*.h)
+OBJ_FILES_DEBUG = $(SRC_FILES_DEBUG:$(DEBUG_SRC_PATH)%.cpp=$(DEBUG_OBJ_PATH)%.o)
+#recipes
+$(DEBUG_OBJ_PATH)%.o : $(DEBUG_SRC_PATH)%.cpp $(DEBUG_SRC_PATH)%.h
+	$(CC) -o $@ -c $< $(PARAMS)
+#Debug
+##################################################
+
+
+##################################################
+#Data listener
+DATA_LISTENER_SRC_PATH = ../data-listener/
+DATA_LISTENER_OBJ_PATH = objects/data-listener/
+SRC_FILES_DATA_LISTENER = $(wildcard $(DATA_LISTENER_SRC_PATH)*.cpp)
+HEADER_FILES_DATA_LISTENER = $(wildcard $(DATA_LISTENER_SRC_PATH)*.h)
+OBJ_FILES_DATA_LISTENER = $(SRC_FILES_DATA_LISTENER:$(DATA_LISTENER_SRC_PATH)%.cpp=$(DATA_LISTENER_OBJ_PATH)%.o)
+#recipes
+$(DATA_LISTENER_OBJ_PATH)%.o : $(DATA_LISTENER_SRC_PATH)%.cpp $(DATA_LISTENER_SRC_PATH)%.h
+	$(CC) -o $@ -c $< $(PARAMS)
+#Data listener
+##################################################
+
+
+build: $(OBJ_FILES_GAMES) $(OBJ_FILES_F12020) $(OBJ_FILES_DEBUG) $(OBJ_FILES_DATA_LISTENER) objects/main.o executable/F1GamesTelemetry
+
+run: $(OBJ_FILES_GAMES) $(OBJ_FILES_F12020) $(OBJ_FILES_DEBUG) $(OBJ_FILES_DATA_LISTENER) objects/main.o executable/F1GamesTelemetry
+	./executable/F1GamesTelemetry
+
+
+executable/F1GamesTelemetry : $(OBJ_FILES_GAMES) $(OBJ_FILES_F12020) $(OBJ_FILES_DEBUG) $(OBJ_FILES_DATA_LISTENER) objects/main.o
+	$(CC) -o $@ $^ $(PARAMS)
 
 objects/main.o : ../main.cpp
-	clang++ -o objects/main.o -c ../main.cpp -Wall -std=c++11
+	$(CC) -o $@ -c $< $(PARAMS)
 
-objects/games.o : ../games/games.cpp
-	clang++ -o objects/games.o -c ../games/games.cpp -Wall -std=c++11
+.PHONY: test clear
 
-objects/global-packet-F12020.o : ../games/F1-2020/global-packet-F12020.cpp
-	clang++ -o objects/global-packet-F12020.o -c ../games/F1-2020/global-packet-F12020.cpp -Wall -std=c++11
+test :
+	echo $(SRC_FILES_F12020) | tr " " "\n"; echo "\n\n"
+	echo $(OBJ_FILES_F12020) | tr " " "\n"
 
-objects/packet-manager.o : ../games/packet-manager.cpp
-	clang++ -o objects/packet-manager.o -c ../games/packet-manager.cpp -Wall -std=c++11
-
-objects/data-listener.o : ../data-listener/data-listener.cpp
-	clang++ -o objects/data-listener.o -c ../data-listener/data-listener.cpp -Wall -std=c++11
-
-objects/global-packet.o : ../games/global-packet.cpp
-	clang++ -o objects/global-packet.o -c ../games/global-packet.cpp -Wall -std=c++11
-
-objects/f12020-packets.o : ../games/F1-2020/packets-structures/*.cpp
-	clang++ -o objects/f12020-packets.o ../games/F1-2020/packets-structures/*.cpp
+clear :
+	rm -f $(GAMES_OBJ_PATH)*.o
+	rm -f $(F12020_OBJ_PATH)*.o
+	rm -f $(QUEUE_OBJ_PATH)*.o
+	rm -f $(DEBUG_OBJ_PATH)*.o

@@ -7,7 +7,7 @@ private:
 
 public:
   //constructor
-  PacketQueue(int *maxPacketSize, char *rawPacket);
+  PacketQueue(char *rawPacket);
   //destructor
   ~PacketQueue();
 
