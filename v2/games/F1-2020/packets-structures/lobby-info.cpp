@@ -20,6 +20,6 @@ void PacketLobbyInfoDataObj::debug() {
 }
 
 //Fonction de clonage
-unique_ptr<PacketLobbyInfoDataObj> PacketLobbyInfoDataObj::clone() {
+unique_ptr<PacketType> PacketLobbyInfoDataObj::clone() {
   return make_unique<PacketLobbyInfoDataObj>(*this);
 }

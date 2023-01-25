@@ -63,7 +63,7 @@ public:
   //Fonction de debug
   void debug();
   //Fonction de clonage
-  unique_ptr<PacketCarSetupDataObj> clone();
+  unique_ptr<PacketType> clone();
 
 };
 

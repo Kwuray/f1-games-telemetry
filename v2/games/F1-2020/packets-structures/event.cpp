@@ -20,6 +20,6 @@ void PacketEventDataObj::debug() {
 }
 
 //Fonction de clonage
-unique_ptr<PacketEventDataObj> PacketEventDataObj::clone() {
+unique_ptr<PacketType> PacketEventDataObj::clone() {
   return make_unique<PacketEventDataObj>(*this);
 }

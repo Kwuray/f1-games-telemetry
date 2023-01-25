@@ -20,6 +20,6 @@ void PacketMotionDataObj::debug() {
 }
 
 //Fonction de clonage
-unique_ptr<PacketMotionDataObj> PacketMotionDataObj::clone() {
+unique_ptr<PacketType> PacketMotionDataObj::clone() {
   return make_unique<PacketMotionDataObj>(*this);
 }

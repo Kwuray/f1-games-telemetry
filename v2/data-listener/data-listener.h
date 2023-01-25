@@ -32,7 +32,7 @@ public:
   //Initialisation de la socket (renvoi -1 si erreur)
   int initSocket();
   //Démarrage de l'écoute
-  void listen(queue<PacketType> *q);
+  void listen(queue<unique_ptr<PacketType>> *q);
   //Destructeur
   ~DataListener();
 };

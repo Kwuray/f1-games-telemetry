@@ -20,6 +20,6 @@ void PacketCarStatusDataObj::debug() {
 }
 
 //Fonction de clonage
-unique_ptr<PacketCarStatusDataObj> PacketCarStatusDataObj::clone() {
+unique_ptr<PacketType> PacketCarStatusDataObj::clone() {
   return make_unique<PacketCarStatusDataObj>(*this);
 }

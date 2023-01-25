@@ -1,5 +1,5 @@
-CC = g++
-PARAMS = -std=c++11 -Wall
+CC = clang++
+PARAMS = -std=c++20 -Wall
 ##################################################
 #Games global
 GAMES_SRC_PATH = ../games/
@@ -25,20 +25,6 @@ OBJ_FILES_F12020 = $(SRC_FILES_F12020:$(F12020_SRC_PATH)%.cpp=$(F12020_OBJ_PATH)
 $(F12020_OBJ_PATH)%.o : $(F12020_SRC_PATH)%.cpp $(F12020_SRC_PATH)%.h
 	$(CC) -o $@ -c $< $(PARAMS)
 #F12020 packets
-##################################################
-
-
-##################################################
-#Queue
-QUEUE_SRC_PATH = ../queues/
-QUEUE_OBJ_PATH = objects/queues/
-SRC_FILES_QUEUE = $(wildcard $(QUEUE_SRC_PATH)*.cpp)
-HEADER_FILES_QUEUE = $(wildcard $(QUEUE_SRC_PATH)*.h)
-OBJ_FILES_QUEUE = $(SRC_FILES_QUEUE:$(QUEUE_SRC_PATH)%.cpp=$(QUEUE_OBJ_PATH)%.o)
-#recipes
-$(QUEUE_OBJ_PATH)%.o : $(QUEUE_SRC_PATH)%.cpp $(QUEUE_SRC_PATH)%.h
-	$(CC) -o $@ -c $< $(PARAMS)
-#Queue
 ##################################################
 
 
@@ -97,3 +83,5 @@ clear :
 	rm -f $(F12020_OBJ_PATH)*.o
 	rm -f $(QUEUE_OBJ_PATH)*.o
 	rm -f $(DEBUG_OBJ_PATH)*.o
+	rm -f $(DATA_LISTENER_OBJ_PATH)*.o
+	rm -f executable/F1GamesTelemetry

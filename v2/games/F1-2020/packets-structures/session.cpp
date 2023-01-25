@@ -20,6 +20,6 @@ void PacketSessionDataObj::debug() {
 }
 
 //Fonction de clonage
-unique_ptr<PacketSessionDataObj> PacketSessionDataObj::clone() {
+unique_ptr<PacketType> PacketSessionDataObj::clone() {
   return make_unique<PacketSessionDataObj>(*this);
 }

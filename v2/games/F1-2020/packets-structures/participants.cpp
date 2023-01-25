@@ -20,6 +20,6 @@ void PacketParticipantsDataObj::debug() {
 }
 
 //Fonction de clonage
-unique_ptr<PacketParticipantsDataObj> PacketParticipantsDataObj::clone() {
+unique_ptr<PacketType> PacketParticipantsDataObj::clone() {
   return make_unique<PacketParticipantsDataObj>(*this);
 }

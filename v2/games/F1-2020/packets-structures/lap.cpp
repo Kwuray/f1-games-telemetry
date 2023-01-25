@@ -20,6 +20,6 @@ void PacketLapDataObj::debug() {
 }
 
 //Fonction de clonage
-unique_ptr<PacketLapDataObj> PacketLapDataObj::clone() {
+unique_ptr<PacketType> PacketLapDataObj::clone() {
   return make_unique<PacketLapDataObj>(*this);
 }

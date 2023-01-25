@@ -20,6 +20,6 @@ void PacketFinalClassificationDataObj::debug() {
 }
 
 //Fonction de clonage
-unique_ptr<PacketFinalClassificationDataObj> PacketFinalClassificationDataObj::clone() {
+unique_ptr<PacketType> PacketFinalClassificationDataObj::clone() {
   return make_unique<PacketFinalClassificationDataObj>(*this);
 }

@@ -28,8 +28,8 @@ void PacketManager::handlePacket(char* rawPacket, size_t rawPacketSize, queue<un
     //Le paquet ne semble pas être conforme
     return;
   }
-  //On créer une copie du paquet crée
-  q->push(packetType);
+  //On ajoute une copie de l'objet dans la queue
+  q->push(packetType->clone());
 }
 
 //Destructeur

@@ -32,6 +32,6 @@ void PacketCarTelemetryDataObj::debug() {
 }
 
 //Fonction de clonage
-unique_ptr<PacketCarTelemetryDataObj> PacketCarTelemetryDataObj::clone() {
+unique_ptr<PacketType> PacketCarTelemetryDataObj::clone() {
   return make_unique<PacketCarTelemetryDataObj>(*this);
 }

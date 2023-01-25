@@ -18,3 +18,8 @@ bool PacketCarSetupDataObj::loadData(char *data, size_t *dataSize) {
 void PacketCarSetupDataObj::debug() {
   printf("Hello world\n");
 }
+
+//Fonction de clonage
+unique_ptr<PacketType> PacketCarSetupDataObj::clone() {
+  return make_unique<PacketCarSetupDataObj>(*this);
+}

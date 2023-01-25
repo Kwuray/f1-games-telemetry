@@ -13,6 +13,8 @@ public:
   virtual void debug() = 0;
   //Fonction de clonage
   virtual unique_ptr<PacketType> clone() = 0;
+  //destructeur
+  virtual ~PacketType() = default;
 };
 
 #endif

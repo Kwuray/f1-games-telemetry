@@ -6,12 +6,10 @@ using namespace std;
 
 class GlobalPacket {
 public:
-  //Constructeur
-  GlobalPacket();
   //Mise à jour du paquet global, retourne l'adresse du paquet
   virtual PacketType* update(char *rawPacket, size_t *rawPacketSize) = 0;
   //Destructeur
-  virtual ~GlobalPacket() = 0;
+  virtual ~GlobalPacket() = default;
 };
 
 #endif

@@ -1,5 +1,4 @@
 #include "global-packet-F12020.h"
-#include "car-setup.h"
 #include "../../packet-type.h"
 #include <string.h>
 #include <stdio.h>

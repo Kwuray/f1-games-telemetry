@@ -73,7 +73,7 @@ public:
   //Fonction de debug
   void debug();
   //Fonction de clonage
-  unique_ptr<PacketLapDataObj> clone();
+  unique_ptr<PacketType> clone();
 };
 
 #endif

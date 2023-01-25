@@ -4,6 +4,7 @@
 #include "../games/packet-type.h"
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <queue>
 #include <memory>
 #include <netdb.h>
 #include <sys/time.h>
@@ -68,5 +69,5 @@ void DataListener::listen(queue<unique_ptr<PacketType>> *q) {
 
 //Destructeur
 DataListener::~DataListener() {
-  delete this->rawPacket;
+  delete [] this->rawPacket;
 }
