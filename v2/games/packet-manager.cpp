@@ -1,9 +1,10 @@
 #include "F1-2020/packets-structures/global-packet-F12020.h"
 #include "packet-manager.h"
 #include "packet-type.h"
-#include "packet-wrapper.h"
 #include <string.h>
 #include <queue>
+#include <memory>
+using namespace std;
 
 //Constructeur
 PacketManager::PacketManager(Games *currentGame) {
@@ -20,16 +21,15 @@ PacketManager::PacketManager(Games *currentGame) {
 }
 
 //Permet de gérer un paquet reçu, vérifier sa conformité, l'enregistrer et l'envoyer vers les queues
-void PacketManager::handlePacket(char* rawPacket, size_t rawPacketSize, queue<PacketWrapper> *q) {
+void PacketManager::handlePacket(char* rawPacket, size_t rawPacketSize, queue<unique_ptr<PacketType>> *q) {
   //On enregistre le paquet reçu
-  this->packetType = this->globalPacket->update(rawPacket, &rawPacketSize, q);
-  if (this->packetType == nullptr) {
+  PacketType *packetType = this->globalPacket->update(rawPacket, &rawPacketSize);
+  if (packetType == nullptr) {
     //Le paquet ne semble pas être conforme
     return;
   }
-  //Création du paquet wrapper pour envoi vers la queue
-  PacketWrapper packetWrapper{&rawPacketSize, *this->packetType};
-  q->push(packetWrapper);
+  //On créer une copie du paquet crée
+  q->push(packetType);
 }
 
 //Destructeur

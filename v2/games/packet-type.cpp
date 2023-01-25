@@ -1,5 +1,9 @@
 #include "packet-type.h"
 
-PacketType::PacketType() {
+bool PacketType::loadData(char *data, size_t *dataSize) {
+
+}
+
+void PacketType::debug() {
   
 }

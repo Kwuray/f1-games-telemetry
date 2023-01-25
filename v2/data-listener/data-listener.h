@@ -9,6 +9,7 @@
 #include <netdb.h>
 #include <sys/time.h>
 #include <queue>
+#include <memory>
 using namespace std;
 
 class DataListener {
@@ -31,7 +32,7 @@ public:
   //Initialisation de la socket (renvoi -1 si erreur)
   int initSocket();
   //Démarrage de l'écoute
-  void listen(queue<PacketWrapper> *q);
+  void listen(queue<PacketType> *q);
   //Destructeur
   ~DataListener();
 };

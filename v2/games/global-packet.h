@@ -1,7 +1,6 @@
 #ifndef GLOBAL_PACKET_H
 #define GLOBAL_PACKET_H
-#include "packet-wrapper.h"
-#include <queue>
+#include "packet-type.h"
 #include <string.h>
 using namespace std;
 
@@ -10,7 +9,7 @@ public:
   //Constructeur
   GlobalPacket();
   //Mise à jour du paquet global, retourne l'adresse du paquet
-  virtual PacketType* update(char *rawPacket, size_t *rawPacketSize, queue<PacketWrapper> *q) = 0;
+  virtual PacketType* update(char *rawPacket, size_t *rawPacketSize) = 0;
   //Destructeur
   virtual ~GlobalPacket() = 0;
 };

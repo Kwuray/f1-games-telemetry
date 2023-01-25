@@ -1,13 +1,15 @@
 #include "data-listener.h"
 #include "../games/games.h"
 #include "../games/packet-manager.h"
-#include "../games/packet-wrapper.h"
+#include "../games/packet-type.h"
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <memory>
 #include <netdb.h>
 #include <sys/time.h>
 #include <string.h>
 #include <stdio.h>
+using namespace std;
 
 DataListener::DataListener(char *port, Games *currentGame) { //Constructeur
   //Ajout du jeu en cours
@@ -51,7 +53,7 @@ int DataListener::initSocket() {
 }
 
 //Démarrage de l'écoute
-void DataListener::listen(queue<PacketWrapper> *q) {
+void DataListener::listen(queue<unique_ptr<PacketType>> *q) {
   //Initialisation du packetManager
   PacketManager packetManager{this->currentGame};
   //Récupération en boucle de tous les paquets

@@ -3,7 +3,6 @@
 #define F120_TOTAL_PACKET_TYPE 10
 #include "../../global-packet.h"
 #include "../../packet-type.h"
-#include "../../packet-wrapper.h"
 #include "car-setup.h"
 #include "car-status.h"
 #include "car-telemetry.h"
@@ -17,7 +16,6 @@
 #include "session.h"
 #include <stddef.h>
 #include <string.h>
-#include <queue>
 using namespace std;
 
 class GlobalPacketF120 : public GlobalPacket {
@@ -37,7 +35,7 @@ private:
   //Liste des paquets
   PacketType *packetsAdresses[F120_TOTAL_PACKET_TYPE];
   //Mise à jour du paquet global, retourne l'adresse du paquet
-  PacketType* update(char *rawPacket, size_t *rawPacketSize, queue<PacketWrapper> *q);
+  PacketType* update(char *rawPacket, size_t *rawPacketSize);
 
 public:
   //Constructeur

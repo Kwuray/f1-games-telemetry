@@ -1,10 +1,8 @@
 #include "global-packet-F12020.h"
 #include "car-setup.h"
 #include "../../packet-type.h"
-#include "../../packet-wrapper.h"
 #include <string.h>
 #include <stdio.h>
-#include <queue>
 using namespace std;
 
 //Constructeur
@@ -25,7 +23,7 @@ GlobalPacketF120::GlobalPacketF120() {
 }
 
 //Mis à jour du paquet global
-PacketType* GlobalPacketF120::update(char *rawPacket, size_t *rawPacketSize, queue<PacketWrapper> *q) {
+PacketType* GlobalPacketF120::update(char *rawPacket, size_t *rawPacketSize) {
   //On ne continu que si le paquet contient au moins un header
   if (*rawPacketSize < sizeof(this->header)) {
     return nullptr;
