@@ -16,6 +16,8 @@
 #include "../../packet-type.h"
 #include <stdint.h>
 #include <string.h>
+#include <memory>
+using namespace std;
 
 union eventDataDetails {
 
@@ -71,6 +73,8 @@ public:
   bool loadData(char *data, size_t *dataSize);
   //Fonction de debug
   void debug();
+  //Fonction de clonage
+  unique_ptr<PacketEventDataObj> clone();
 
 };
 

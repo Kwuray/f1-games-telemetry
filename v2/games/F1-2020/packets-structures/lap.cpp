@@ -1,6 +1,8 @@
 #include "lap.h"
 #include <string.h>
 #include <stdio.h>
+#include <memory>
+using namespace std;
 
 //Permet de charger les données
 bool PacketLapDataObj::loadData(char *data, size_t *dataSize) {
@@ -15,4 +17,9 @@ bool PacketLapDataObj::loadData(char *data, size_t *dataSize) {
 //Fonction de debug
 void PacketLapDataObj::debug() {
   printf("Hello world\n");
+}
+
+//Fonction de clonage
+unique_ptr<PacketLapDataObj> PacketLapDataObj::clone() {
+  return make_unique<PacketLapDataObj>(*this);
 }

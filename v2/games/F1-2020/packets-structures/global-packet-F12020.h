@@ -34,12 +34,12 @@ private:
   PacketLobbyInfoDataObj lobbyInfo{};
   //Liste des paquets
   PacketType *packetsAdresses[F120_TOTAL_PACKET_TYPE];
-  //Mise à jour du paquet global, retourne l'adresse du paquet
-  PacketType* update(char *rawPacket, size_t *rawPacketSize);
 
 public:
   //Constructeur
   GlobalPacketF120();
+  //Mise à jour du paquet global, retourne l'adresse du paquet
+  PacketType* update(char *rawPacket, size_t *rawPacketSize);
 };
 
 #endif

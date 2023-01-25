@@ -36,5 +36,5 @@ PacketType* GlobalPacketF120::update(char *rawPacket, size_t *rawPacketSize) {
     return nullptr;
   }
   //On peut retourner l'adresse du paquet
-  return this->packetsAdresses[this->header.m_packetId]
+  return this->packetsAdresses[this->header.m_packetId];
 }

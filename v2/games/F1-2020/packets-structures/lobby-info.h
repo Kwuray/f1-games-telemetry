@@ -15,6 +15,8 @@
 #include "../../packet-type.h"
 #include <stdint.h>
 #include <string.h>
+#include <memory>
+using namespace std;
 
 struct __attribute__((packed)) lobbyInfoData {
 
@@ -44,7 +46,8 @@ public:
   bool loadData(char *data, size_t *dataSize);
   //Fonction de debug
   void debug();
-
+  //Fonction de clonage
+  unique_ptr<PacketLobbyInfoDataObj> clone();
 };
 
 #endif

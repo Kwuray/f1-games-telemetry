@@ -1,6 +1,8 @@
 #include "car-telemetry.h"
 #include <string.h>
 #include <stdio.h>
+#include <memory>
+using namespace std;
 
 //Permet de charger les données
 bool PacketCarTelemetryDataObj::loadData(char *data, size_t *dataSize) {
@@ -27,4 +29,9 @@ void PacketCarTelemetryDataObj::debug() {
   this->carTelemetry.m_carTelemetryData[playerIndex].m_brake,
   this->carTelemetry.m_carTelemetryData[playerIndex].m_gear,
   this->carTelemetry.m_carTelemetryData[playerIndex].m_engineRPM);
+}
+
+//Fonction de clonage
+unique_ptr<PacketCarTelemetryDataObj> PacketCarTelemetryDataObj::clone() {
+  return make_unique<PacketCarTelemetryDataObj>(*this);
 }

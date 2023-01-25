@@ -1,6 +1,8 @@
 #include "participants.h"
 #include <string.h>
 #include <stdio.h>
+#include <queue>
+using namespace std;
 
 //Permet de charger les données
 bool PacketParticipantsDataObj::loadData(char *data, size_t *dataSize) {
@@ -15,4 +17,9 @@ bool PacketParticipantsDataObj::loadData(char *data, size_t *dataSize) {
 //Fonction de debug
 void PacketParticipantsDataObj::debug() {
   printf("Hello world\n");
+}
+
+//Fonction de clonage
+unique_ptr<PacketParticipantsDataObj> PacketParticipantsDataObj::clone() {
+  return make_unique<PacketParticipantsDataObj>(*this);
 }

@@ -1,6 +1,8 @@
 #include "session.h"
 #include <string.h>
 #include <stdio.h>
+#include <memory>
+using namespace std;
 
 //Permet de charger les données
 bool PacketSessionDataObj::loadData(char *data, size_t *dataSize) {
@@ -15,4 +17,9 @@ bool PacketSessionDataObj::loadData(char *data, size_t *dataSize) {
 //Fonction de debug
 void PacketSessionDataObj::debug() {
   printf("Hello world\n");
+}
+
+//Fonction de clonage
+unique_ptr<PacketSessionDataObj> PacketSessionDataObj::clone() {
+  return make_unique<PacketSessionDataObj>(*this);
 }

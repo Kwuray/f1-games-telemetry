@@ -1,4 +1,4 @@
-CC = clang++
+CC = g++
 PARAMS = -std=c++11 -Wall
 ##################################################
 #Games global
