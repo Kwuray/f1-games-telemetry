@@ -1,5 +1,6 @@
 CC = clang++
 PARAMS = -std=c++20 -Wall
+GTKMM = $(shell pkg-config gtkmm-3.0 --cflags --libs)
 ##################################################
 #Games global
 GAMES_SRC_PATH = ../games/
@@ -71,10 +72,8 @@ objects/main.o : ../main.cpp
 .PHONY: test clear
 
 test :
-	$(CC) -o objects/tests/car-setup.o -c ../games/F1-2020/packets-structures/car-setup.cpp $(PARAMS)
-	$(CC) -o objects/tests/main.o -c ../main.cpp $(PARAMS)
-	$(CC) -o objects/tests/games.o -c ../games/games.cpp $(PARAMS)
-	$(CC) -o objects/tests/Test objects/tests/main.o objects/tests/games.o objects/tests/car-setup.o $(PARAMS)
+	$(CC) -o objects/tests/test.o -c test.cpp $(PARAMS) `pkg-config gtkmm-3.0 --cflags --libs`
+	$(CC) -o objects/tests/Test objects/tests/test.o $(PARAMS) `pkg-config gtkmm-3.0 --cflags --libs`
 	./objects/tests/Test
 
 
